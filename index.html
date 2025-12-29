@@ -3,198 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Station Thanda | Official Village & Job Portal</title>
+    <title>Station Thanda | Official Administrative & Study Hub</title>
+    
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <script>if (top !== self) { top.location.replace(self.location.href); }</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --saffron: #FF9933; --white: #FFFFFF; --green: #138808; --dark: #2c3e50; --blue: #2980b9; }
+        :root { --saffron: #FF9933; --green: #138808; --dark: #2c3e50; --blue: #1a73e8; --red: #e74c3c; --gold: #f1c40f; }
         * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color: #333; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f4f7f6; padding-bottom: 80px; }
 
-        /* --- TRANSLATE BAR --- */
-        #google_translate_element { background: white; text-align: center; padding: 5px; border-bottom: 1px solid #ddd; }
+        /* --- HEADER --- */
+        .header-section { background-color: var(--saffron); color: white; padding: 25px 5%; border-bottom: 5px solid var(--dark); text-align: center; }
+        .profile-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .profile img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; object-fit: cover; }
+        .center-title h1 { font-size: clamp(20px, 5vw, 35px); margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 
-        /* --- HEADER SECTION --- */
-        .header-section {
-            background-color: var(--saffron);
-            min-height: 35vh;
-            color: white;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            position: relative;
-            text-align: center;
-        }
-        .owner-tag { position: absolute; top: 10px; left: 10px; font-size: 11px; background: rgba(0,0,0,0.3); padding: 3px 10px; border-radius: 20px; text-decoration: none; color: white; }
+        /* --- NAVIGATION --- */
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 5px; padding: 10px; background: #ddd; position: sticky; top: 0; z-index: 1000; }
+        .nav-item { background: white; padding: 12px; text-align: center; font-weight: bold; cursor: pointer; border-radius: 5px; border: 1px solid #bbb; font-size: 11px; transition: 0.2s; }
+        .nav-item.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+        /* --- CONTENT PAGES --- */
+        .sub-page { display: none; padding: 15px; max-width: 1200px; margin: auto; animation: fadeIn 0.4s; }
+        .sub-page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        .profile { flex: 1; min-width: 250px; padding: 15px; }
-        .profile img { width: 140px; height: 140px; border-radius: 50%; border: 5px solid white; object-fit: cover; background: #eee; }
-        .profile h3 { margin: 15px 0 5px; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; line-height: 1.3; }
-        .profile p { margin: 0; font-size: 11px; font-weight: bold; opacity: 0.9; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+        .data-table th, .data-table td { border: 1px solid #ddd; padding: 12px; text-align: left; font-size: 13px; }
+        .highlight-row { background-color: #fff9c4 !important; font-weight: bold; border: 2px solid var(--saffron); }
 
-        .center-title { flex: 2; min-width: 300px; }
-        .center-title h1 { font-size: clamp(28px, 5vw, 45px); margin: 0; letter-spacing: 2px; }
-        .youtube-btn { display: inline-block; margin-top: 10px; background: red; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        /* --- GP BODY & EXAM STYLES --- */
+        .gp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .member-card { background: #f9f9f9; padding: 15px; border-radius: 8px; border-top: 4px solid var(--blue); text-align: center; }
+        .exam-btn { background: var(--blue); color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin: 5px 0; font-weight: bold; }
+        .opt-label { display: block; padding: 12px; border: 1px solid #eee; margin-top: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .opt-label:hover { background: #f0f7ff; }
 
-        /* --- MIDDLE DIVIDER --- */
-        .middle-divider { height: 6px; background: var(--dark); width: 100%; position: sticky; top: 0; z-index: 100; }
-
-        /* --- MAIN CONTENT AREA --- */
-        .main-container { display: flex; flex-wrap: wrap; min-height: 60vh; }
-        .left-side { flex: 1; min-width: 350px; background: white; border-right: 3px solid #eee; padding: 20px; }
-        .right-side { flex: 1; min-width: 350px; background: #fff; padding: 20px; border-left: 3px solid #eee; }
-
-        /* --- TAB STYLING --- */
-        .tab-btn { 
-            width: 100%; background: #fff; border: 1px solid #ddd; padding: 16px; 
-            margin-bottom: 8px; text-align: left; font-weight: bold; cursor: pointer; 
-            display: flex; justify-content: space-between; align-items: center;
-            border-radius: 8px; transition: all 0.3s;
-        }
-        .tab-btn:hover { background: #fff5eb; border-color: var(--saffron); color: var(--saffron); }
-        .tab-btn.active { background: var(--saffron); color: white; border-color: var(--saffron); }
-        .tab-content { display: none; padding: 20px; border: 1px solid #eee; margin-bottom: 20px; border-radius: 12px; background: #fafafa; animation: fadeIn 0.5s; }
-
-        /* --- FEED CONTAINERS --- */
-        .feed-container { height: 500px; overflow-y: scroll; border: 1px solid #ddd; border-radius: 8px; background: #fff; padding: 5px; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .main-container { flex-direction: column; }
-            .header-section { flex-direction: column; padding-top: 40px; }
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        footer { background: #222; color: #aaa; text-align: center; padding: 25px; font-size: 14px; }
-        footer a { color: var(--saffron); text-decoration: none; }
+        /* --- ADMIN FOOTER --- */
+        .admin-footer { position: fixed; bottom: 0; width: 100%; background: #222; padding: 15px; text-align: center; z-index: 2000; }
+        .admin-link { color: #888; text-decoration: none; font-size: 11px; font-family: monospace; border: 1px solid #444; padding: 6px 15px; border-radius: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="google_translate_element"></div>
-
     <div class="header-section">
-        <a href="https://youtube.com/@infobypawarsachin?si=MCv0Mc6VEYy8WQaj" class="owner-tag" target="_blank">@infobypawarsachin</a>
-        
-        <div class="profile">
-            <img src="sarpanch.jpg" alt="Sarpanch">
-            <h3>VISLAVATH BHARATHI JAGATHSINGH PAWAR</h3>
-            <p>SARPANCH (Station Thanda)</p>
-        </div>
-
-        <div class="center-title">
-            <h1>STATION THANDA</h1>
-            <p>Smart Village Digital Portal 2025</p>
-            <a href="https://youtube.com/@infobypawarsachin?si=MCv0Mc6VEYy8WQaj" target="_blank" class="youtube-btn">Subscribe YouTube</a>
-        </div>
-
-        <div class="profile">
-            <img src="father.jpg" alt="Father Memory">
-            <h3>V NOORSINGH NAYAK</h3>
-            <p>IN LOVING MEMORY</p>
+        <div class="profile-container">
+            <div class="profile"><img src="sarpanch.jpg"><h4>VISLAVATH BHARATHI J. PAWAR</h4><p>SARPANCH</p></div>
+            <div class="center-title"><h1>STATION THANDA</h1><p>INDALWAI | NIZAMABAD | 503164</p></div>
+            <div class="profile"><img src="father.jpg"><h4>V NOORSINGH NAYAK</h4><p>IN MEMORY</p></div>
         </div>
     </div>
 
-    <div class="middle-divider"></div>
-
-    <div class="main-container">
-        
-        <div class="left-side">
-            <button class="tab-btn active" onclick="toggleTab(event, 'jobs')">🔔 Live Job Alerts (TS & Central) <span>+</span></button>
-            <div id="jobs" class="tab-content" style="display: block;">
-                <p style="font-size: 12px; color: var(--blue);">🔄 Auto-Updating Job Feeds</p>
-                <div class="feed-container">
-                    <iframe src="https://rss.app/embed/v1/list/tLM18Zx8ztz9C3Nk" frameborder="0" width="100%" height="450"></iframe>
-                    <iframe src="https://rss.app/embed/v1/list/t0oZM6JheFXpyIpp" frameborder="0" width="100%" height="450"></iframe>
-                    <iframe src="https://rss.app/embed/v1/list/tOeQk7hQdHOvWcYv" frameborder="0" width="100%" height="450"></iframe>
-                    <iframe src="https://rss.app/embed/v1/list/tO37YdMxjPCV4vov" frameborder="0" width="100%" height="450"></iframe>
-                    <iframe src="https://rss.app/embed/v1/list/tFwUd1nW53dARInB" frameborder="0" width="100%" height="450"></iframe>
-                </div>
-            </div>
-
-            <button class="tab-btn" onclick="toggleTab(event, 'village')">📂 Village Information <span>+</span></button>
-            <div id="village" class="tab-content">
-                <table width="100%" border="1" cellpadding="10" style="border-collapse:collapse; background:white;">
-                    <tr style="background:#eee;"><th>Ward</th><th>Member Name</th></tr>
-                    <tr><td>WARD 1</td><td>RATHLA GEETHA BALU</td></tr>
-                    <tr><td>WARD 2</td><td>MALAVATH SRINIVAS (VICE SARPANCH)</td></tr>
-                    <tr><td>WARD 3</td><td>VISLAVATH LALITHA JORSINGH</td></tr>
-                    <tr><td>WARD 4</td><td>BANAVATH SANTOSH</td></tr>
-                    <tr><td>WARD 5</td><td>VISLAVATH JAYA SEVYA</td></tr>
-                    <tr><td>WARD 6</td><td>BADAVATH UPENDRA ( CHENNAI )</td></tr>
-                    <tr><td>WARD 7</td><td>BADAVATH LALITHA RAMULU</td></tr>
-                    <tr><td>WARD 8</td><td>JAWAHAR</td></tr>
-                </table>
-                <br>
-                <a href="https://www.office.com" target="_blank" style="color:var(--green); font-weight:bold;">📄 Open Villager Database</a>
-            </div>
-
-            <button class="tab-btn" onclick="toggleTab(event, 'agri')">🚜 Agriculture Updates <span>+</span></button>
-            <div id="agri" class="tab-content">
-                <p><strong>Current Market Price:</strong> Cotton & Paddy updates.</p>
-                <textarea style="width:100%; border-radius:5px; padding:10px;" placeholder="Admin: Note crop status here..."></textarea>
-            </div>
-
-            <button class="tab-btn" onclick="toggleTab(event, 'study')">🎓 Study Hub & General Science <span>+</span></button>
-            <div id="study" class="tab-content">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <div style="background:#f0f7ff; padding:10px; border-radius:8px; border-bottom:3px solid var(--blue);">
-                        <strong style="font-size:13px; color:var(--blue);">🧬 General Science</strong>
-                        <p style="font-size:11px; margin:5px 0;">Physics, Chemistry & Biology materials.</p>
-                    </div>
-                    <div style="background:#fff5eb; padding:10px; border-radius:8px; border-bottom:3px solid var(--saffron);">
-                        <strong style="font-size:13px; color:var(--saffron);">🧮 Arithmetic</strong>
-                        <p style="font-size:11px; margin:5px 0;">Math tricks and daily sums.</p>
-                    </div>
-                </div>
-                <div class="feed-container" style="height: 350px;">
-                    <iframe src="https://rss.app/embed/v1/list/tFwUd1nW53dARInB" frameborder="0" width="100%" height="600"></iframe>
-                </div>
-                <a href="https://www.sakshieducation.com/" target="_blank" class="youtube-btn" style="background:var(--green); width:100%; text-align:center;">Open Education Library</a>
-            </div>
-
-            <button class="tab-btn" onclick="toggleTab(event, 'videos')">🎥 Watch Videos <span>+</span></button>
-            <div id="videos" class="tab-content">
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            <button class="tab-btn" onclick="toggleTab(event, 'comments')">💬 Suggestions <span>+</span></button>
-            <div id="comments" class="tab-content">
-                <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="400" frameborder="0">Loading…</iframe>
-            </div>
-        </div>
-
-        <div class="right-side">
-            <h2 style="color:var(--dark); margin-top:0;">Live News (తెలంగాణ)</h2>
-            <div class="feed-container">
-                <iframe src="https://rss.app/embed/v1/list/tbteIAo4gyobJRmZ" frameborder="0" width="100%" height="800"></iframe>
-            </div>
-        </div>
-
+    <div class="nav-grid">
+        <div class="nav-item active" onclick="showPage('admin-page', this)">🏛️ GP Body</div>
+        <div class="nav-item" onclick="showPage('village-info', this)">📍 Profile</div>
+        <div class="nav-item" onclick="showPage('study-hub', this)">📖 Study Hub</div>
+        <div class="nav-item" onclick="showPage('go-page', this)">📜 GOs/News</div>
+        <div class="nav-item" onclick="showPage('citizen-hub', this)">💬 Chat/Hub</div>
     </div>
 
-    <footer>
-        <p>Site Tag: <a href="https://youtube.com/@infobypawarsachin?si=MCv0Mc6VEYy8WQaj" target="_blank">@infobypawarsachin</a> | Station Thanda Village Portal</p>
-    </footer>
+    <div id="admin-page" class="sub-page active">
+        <div class="card">
+            <h3 style="text-align:center;">Gram Panchayat Body</h3>
+            <div class="gp-grid">
+                <div class="member-card" style="border-top-color: var(--saffron);"><h5>V. BHARATHI J. PAWAR</h5><p>Sarpanch</p></div>
+                <div class="member-card" style="border-top-color: var(--green);"><h5>[Secretary Name]</h5><p>GP Secretary</p></div>
+                <div class="member-card"><h5>Ward Member 1</h5><p>Ward No: 01</p></div>
+                <div class="member-card"><h5>Ward Member 2</h5><p>Ward No: 02</p></div>
+            </div>
+        </div>
+    </div>
 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'te', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <div id="village-info" class="sub-page">
+        <div class="card">
+            <h3>📍 Administrative Details</h3>
+            <table class="data-table">
+                <tr><td><strong>Mandal</strong></td><td>INDALWAI</td></tr>
+                <tr><td><strong>District</strong></td><td>NIZAMABAD</td></tr>
+                <tr><td><strong>Pincode</strong></td><td>503164</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <h3>🗺️ Village Map (Official)</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15112.5513511111!2d78.23!3d18.52" width="100%" height="400" style="border:0; border-radius:10px;"></iframe>
+        </div>
+    </div>
+
+    <div id="study-hub" class="sub-page">
+        <div class="card">
+            <h3>📊 Education Growth Chart</h3>
+            <canvas id="schoolChart" style="width:100%; height:250px;"></canvas>
+        </div>
+        
+        <div class="card">
+            <h3>📝 Online Exam Center (TSNPDCL & TSPSC)</h3>
+            <div id="setup-exam">
+                <p>Select your practice exam:</p>
+                <button onclick="prepExam('TS_GENERAL')" class="exam-btn" style="background:var(--saffron);">TS General Studies (Auto-Gen)</button>
+                <button onclick="prepExam('TSNPDCL')" class="exam-btn">TSNPDCL Sub-Engineer Electrical</button>
+            </div>
+            <div id="quiz-area" style="display:none;">
+                <div id="q-text" style="font-weight:bold; margin-bottom:15px; font-size:16px;"></div>
+                <div id="opt-container"></div>
+                <button onclick="nextQ()" class="exam-btn" style="background:var(--green); margin-top:15px;">Confirm & Next</button>
+            </div>
+            <div id="final-result" style="display:none; text-align:center;">
+                <h2 id="final-score"></h2>
+                <button onclick="location.reload()" class="exam-btn">Reset Exam</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4 style="color:var(--green);">Government School Records</h4>
+            <table class="data-table">
+                <tr><th>Name</th><th>Class</th><th>Father</th></tr>
+                <tr><td>V. Sai Kumar</td><td>5th</td><td>V. Jorsingh</td></tr>
+            </table>
+            <br>
+            <h4 style="color:var(--blue);">Private School Records</h4>
+            <table class="data-table">
+                <tr><th>Name</th><th>Class</th><th>School</th></tr>
+                <tr><td>B. Rahul</td><td>7th</td><td>St. Mary's</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="go-page" class="sub-page">
+        <div class="card">
+            <h3>📊 GP State Ranking</h3>
+            <table class="data-table">
+                <tr class="highlight-row"><td>Rank 12</td><td>STATION THANDA</td><td>Nizamabad</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <h3>📜 Official TG Govt Orders & News</h3>
+            <iframe src="https://rss.app/embed/v1/list/t8vH3xY0mP4T0XkL" frameborder="0" width="100%" height="600"></iframe>
+            <hr>
+            <iframe src="https://rss.app/embed/v1/list/tbteIAo4gyobJRmZ" frameborder="0" width="100%" height="600"></iframe>
+        </div>
+    </div>
+
+    <div id="citizen-hub" class="sub-page">
+        <div class="card"><h3>💬 Gmail Citizen Chat</h3><iframe src="https://groups.google.com/g/station-thanda-portal/feed" width="100%" height="500" frameborder="0"></iframe></div>
+        <div class="card"><h3>🎤 Voice Wall</h3><iframe src="https://padlet.com/embed/gzd7bao3benjhcnw" width="100%" height="500" frameborder="0"></iframe></div>
+    </div>
+
+    <div class="admin-footer">
+        <a href="https://github.com/infobypawarsachin/infobypawarsachin/edit/main/index.html" class="admin-link" target="_blank">⚙️ MASTER ADMIN EDIT MODE</a>
+    </div>
 
     <script>
-        function toggleTab(evt, tabId) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
-            document.getElementById(tabId).style.display = "block";
-            evt.currentTarget.className += " active";
+        // Page Switching Logic
+        function showPage(pageId, navEl) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            navEl.classList.add('active');
+            window.scrollTo(0,0);
         }
+
+        // Exam Logic
+        const questions = {
+            TS_GENERAL: [
+                {q: "Telangana Formation Day?", a: "June 2", o: ["June 2", "June 12", "Aug 15", "Jan 26"]},
+                {q: "State Tree of Telangana?", a: "Jammi Chettu", o: ["Neem", "Jammi Chettu", "Banyan", "Peepal"]}
+            ],
+            TSNPDCL: [
+                {q: "Unit of Inductance?", a: "Henry", o: ["Farad", "Henry", "Ohm", "Weber"]},
+                {q: "Type of motor used in fans?", a: "Capacitor Start", o: ["Series", "Capacitor Start", "Shunt", "Synchronous"]}
+            ]
+        };
+        let activeExam = [], curQ = 0, score = 0;
+        function prepExam(t) {
+            activeExam = questions[t];
+            document.getElementById('setup-exam').style.display = 'none';
+            document.getElementById('quiz-area').style.display = 'block';
+            loadQ();
+        }
+        function loadQ() {
+            let q = activeExam[curQ];
+            document.getElementById('q-text').innerText = (curQ+1) + ". " + q.q;
+            let opts = document.getElementById('opt-container');
+            opts.innerHTML = '';
+            q.o.forEach(o => {
+                opts.innerHTML += `<label class="opt-label"><input type="radio" name="opt" value="${o}"> ${o}</label>`;
+            });
+        }
+        function nextQ() {
+            let sel = document.querySelector('input[name="opt"]:checked');
+            if(!sel) return alert("Select an answer");
+            if(sel.value === activeExam[curQ].a) score++;
+            curQ++;
+            if(curQ < activeExam.length) loadQ();
+            else {
+                document.getElementById('quiz-area').style.display = 'none';
+                document.getElementById('final-result').style.display = 'block';
+                document.getElementById('final-score').innerText = `Your Result: ${score}/${activeExam.length}`;
+            }
+        }
+
+        // Enrollment Chart
+        const ctx = document.getElementById('schoolChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2023', '2024', '2025'],
+                datasets: [{ label: 'Total Students', data: [210, 245, 275], backgroundColor: '#138808' }]
+            }
+        });
     </script>
 </body>
 </html>
-
