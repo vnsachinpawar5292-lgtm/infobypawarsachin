@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Thanda | Official Village & Job Portal</title>
+    <style>
+        :root { --saffron: #FF9933; --white: #FFFFFF; --green: #138808; --dark: #2c3e50; --blue: #2980b9; --red: #e74c3c; --teal: #009688; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color: #333; }
+
+
+        /* --- GOOGLE TRANSLATE --- */
+        #google_translate_element { background: white; text-align: center; padding: 5px; border-bottom: 1px solid #ddd; }
+
+
+        /* --- HEADER --- */
+        .header-section {
+            background-color: var(--saffron);
+            min-height: 35vh;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: relative;
+            text-align: center;
+        }
+        .owner-tag { position: absolute; top: 10px; left: 10px; font-size: 11px; background: rgba(0,0,0,0.3); padding: 3px 10px; border-radius: 20px; text-decoration: none; color: white; }
+        
+        .profile { flex: 1; min-width: 250px; padding: 15px; }
+        .profile img { width: 140px; height: 140px; border-radius: 50%; border: 5px solid white; object-fit: cover; background: #eee; }
+        .profile h3 { margin: 15px 0 5px; font-size: 15px; text-transform: uppercase; line-height: 1.3; }
+        .profile p { margin: 0; font-size: 11px; font-weight: bold; opacity: 0.9; }
+
+
+        .center-title { flex: 2; min-width: 300px; }
+        .center-title h1 { font-size: clamp(28px, 5vw, 45px); margin: 0; letter-spacing: 2px; }
+        .youtube-btn { display: inline-block; margin-top: 10px; background: red; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
+
+
+        /* --- EMERGENCY CONTACTS --- */
+        .emergency-section { background: #fff1f0; border: 2px solid #ffa39e; padding: 10px; margin: 15px 5%; border-radius: 8px; }
+        .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
+        .em-box { background: white; padding: 8px; border-radius: 5px; text-align: center; border: 1px solid #ffccc7; font-size: 13px; }
+        .em-box strong { color: var(--red); display: block; }
+
+
+        /* --- MAIN LAYOUT --- */
+        .middle-divider { height: 6px; background: var(--dark); width: 100%; position: sticky; top: 0; z-index: 100; }
+        .main-container { display: flex; flex-wrap: wrap; min-height: 60vh; }
+        .left-side { flex: 1; min-width: 350px; background: white; border-right: 3px solid #eee; padding: 20px; }
+        .right-side { flex: 1; min-width: 350px; background: #fff; padding: 20px; border-left: 3px solid #eee; }
+
+
+        /* --- TABS --- */
+        .tab-btn { 
+            width: 100%; background: #fff; border: 1px solid #ddd; padding: 15px; 
+            margin-bottom: 8px; text-align: left; font-weight: bold; cursor: pointer; border-radius: 8px;
+        }
+        .tab-btn.active { background: var(--saffron); color: white; border-color: var(--saffron); }
+        .tab-content { display: none; padding: 15px; border: 1px solid #eee; margin-bottom: 20px; border-radius: 12px; background: #fafafa; }
+
+
+        .feed-container { height: 500px; overflow-y: scroll; border: 1px solid #ddd; border-radius: 8px; background: #fff; }
+
+
+        @media (max-width: 768px) { .main-container { flex-direction: column; } .header-section { flex-direction: column; padding-top: 40px; } }
+        footer { background: #222; color: #aaa; text-align: center; padding: 25px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+
+    <div id="google_translate_element"></div>
+
+
+    <div class="header-section">
+        <a href="https://youtube.com/@infobypawarsachin" class="owner-tag" target="_blank">@infobypawarsachin</a>
+        <div class="profile">
+            <img src="sarpanch.jpg" alt="Sarpanch">
+            <h3>VISLAVATH BHARATHI JAGATHSINGH PAWAR</h3>
+            <p>SARPANCH</p>
+        </div>
+        <div class="center-title">
+            <h1>STATION THANDA</h1>
+            <p>Smart Village Digital Hub 2025</p>
+            <a href="https://youtube.com/@infobypawarsachin" target="_blank" class="youtube-btn">Subscribe for Videos</a>
+        </div>
+        <div class="profile">
+            <img src="father.jpg" alt="Father">
+            <h3>V NOORSINGH NAYAK</h3>
+            <p>IN LOVING MEMORY</p>
+        </div>
+    </div>
+
+
+    <div class="middle-divider"></div>
+
+
+    <div class="emergency-section">
+        <div class="emergency-grid">
+            <div class="em-box"><span>Police</span><strong>100</strong></div>
+            <div class="em-box"><span>Ambulance</span><strong>108</strong></div>
+            <div class="em-box"><span>Current</span><strong>1912</strong></div>
+            <div class="em-box"><span>Women</span><strong>1091</strong></div>
+        </div>
+    </div>
+
+
+    <div class="main-container">
+        <div class="left-side">
+            
+            <button class="tab-btn active" onclick="toggleTab(event, 'public_wall')">🎤 Public Wall (వాయిస్ & వార్తలు) <span>+</span></button>
+            <div id="public_wall" class="tab-content" style="display: block;">
+                <div style="background: #e0f2f1; padding: 10px; border-radius: 8px; border: 1px solid var(--teal); margin-bottom: 10px;">
+                    <p style="font-size:12px; margin:0;"><strong>ఎవరైనా అప్‌డేట్ చేయవచ్చు:</strong> వాయిస్ రికార్డ్ చేయడానికి (+) నొక్కండి.</p>
+                </div>
+                <div style="height: 600px;">
+                    <iframe src="https://padlet.com/embed/gzd7bao3benjhcnw" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" width="100%" height="100%" style="border-radius:10px; background:#F4F4F4"></iframe>
+                </div>
+            </div>
+
+
+            <button class="tab-btn" onclick="toggleTab(event, 'services')">🏛️ Citizen Services <span>+</span></button>
+            <div id="services" class="tab-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <a href="https://dharani.telangana.gov.in/" target="_blank" style="text-decoration:none; background:#eee; padding:10px; border-radius:5px; text-align:center; font-size:12px; color:#333;">DHARANI</a>
+                    <a href="https://epds.telangana.gov.in/" target="_blank" style="text-decoration:none; background:#eee; padding:10px; border-radius:5px; text-align:center; font-size:12px; color:#333;">RATION CARD</a>
+                    <a href="https://www.aasara.telangana.gov.in/" target="_blank" style="text-decoration:none; background:#eee; padding:10px; border-radius:5px; text-align:center; font-size:12px; color:#333;">PENSION</a>
+                    <a href="https://ts.meeseva.telangana.gov.in/" target="_blank" style="text-decoration:none; background:#eee; padding:10px; border-radius:5px; text-align:center; font-size:12px; color:#333;">MEESEVA</a>
+                </div>
+            </div>
+
+
+            <button class="tab-btn" onclick="toggleTab(event, 'jobs')">🔔 Live Job Alerts <span>+</span></button>
+            <div id="jobs" class="tab-content">
+                <div class="feed-container">
+                    <iframe src="https://rss.app/embed/v1/list/tLM18Zx8ztz9C3Nk" frameborder="0" width="100%" height="500"></iframe>
+                    <iframe src="https://rss.app/embed/v1/list/t0oZM6JheFXpyIpp" frameborder="0" width="100%" height="500"></iframe>
+                </div>
+            </div>
+
+
+            <button class="tab-btn" onclick="toggleTab(event, 'sports')">🏆 Sports & Live Scores <span>+</span></button>
+            <div id="sports" class="tab-content">
+                <iframe src="https://www.cricket-score.com/widget/live-scores" style="width:100%; height:400px; border:none;"></iframe>
+            </div>
+
+
+        </div>
+
+
+        <div class="right-side">
+            <h2 style="color:var(--dark); margin-top:0; font-size:18px;">Live News (తెలంగాణ)</h2>
+            <div class="feed-container" style="height: 800px;">
+                <iframe src="https://rss.app/embed/v1/list/tbteIAo4gyobJRmZ" frameborder="0" width="100%" height="800"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>Managed by @infobypawarsachin | Station Thanda Village Portal</p>
+    </footer>
+
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'te'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+    <script>
+        function toggleTab(evt, tabId) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+            document.getElementById(tabId).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
+
