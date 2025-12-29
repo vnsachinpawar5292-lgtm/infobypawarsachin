@@ -1,1 +1,269 @@
-https://g.co/gemini/share/e140d3250ef5
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Station Thanda</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+
+/* HEADER */
+.header {
+    height: 33vh;
+    background: linear-gradient(to right, #ff9800, #ff6f00);
+    color: white;
+    position: relative;
+    padding: 10px;
+}
+
+
+.owner-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
+}
+
+
+.profile {
+    position: absolute;
+    text-align: center;
+}
+
+
+.profile img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+
+.left-profile {
+    left: 10px;
+    bottom: 10px;
+}
+
+
+.right-profile {
+    right: 10px;
+    bottom: 10px;
+}
+
+
+/* MAIN SECTION */
+.main {
+    display: flex;
+    height: 60vh;
+}
+
+
+/* LEFT */
+.left {
+    width: 50%;
+    padding: 10px;
+    overflow-y: auto;
+    background: #ffffff;
+}
+
+
+/* RIGHT */
+.right {
+    width: 50%;
+    padding: 10px;
+    overflow-y: auto;
+    background: #fafafa;
+}
+
+
+/* DIVIDER */
+.divider {
+    width: 5px;
+    background: #ff9800;
+    cursor: col-resize;
+}
+
+
+/* TABS */
+.tabs button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    margin-bottom: 5px;
+    background: #ff9800;
+    color: white;
+    cursor: pointer;
+}
+
+
+.tabs button:hover {
+    background: #e65100;
+}
+
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+
+/* COMMENTS */
+textarea {
+    width: 100%;
+    height: 60px;
+}
+
+
+.comment {
+    background: #eee;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+
+/* FOOTER */
+.footer {
+    background: #ff9800;
+    text-align: center;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+<div class="header">
+    <div class="owner-tag">@infobypawarsachin</div>
+
+
+    <div class="profile left-profile">
+        <img src="https://via.placeholder.com/150">
+        <div><b>Sarpanch</b><br>VISLAVATH BHARATHI<br>JAGATHSINGH PAWAR</div>
+    </div>
+
+
+    <div class="profile right-profile">
+        <img src="https://via.placeholder.com/150">
+        <div><b>Late</b><br>VISLAVATH NOORSINGH<br>NAYAK PAWAR</div>
+    </div>
+</div>
+
+
+<!-- MAIN -->
+<div class="main">
+
+
+<!-- LEFT PART -->
+<div class="left">
+
+
+<div class="tabs">
+<button onclick="openTab('village')">Village Info</button>
+<button onclick="openTab('agri')">Agriculture Info</button>
+<button onclick="openTab('study')">Study Hub</button>
+<button onclick="openTab('media')">Watch Videos & Photos</button>
+<button onclick="openTab('comments')">Comments</button>
+</div>
+
+
+<div id="village" class="tab-content">
+<h3>Gram Panchayat Info</h3>
+<p>Ward Members – Manual Table</p>
+<p>Villagers Full Data – MS Office / Excel Link</p>
+</div>
+
+
+<div id="agri" class="tab-content">
+<h3>Agriculture Info</h3>
+<p>Manual write & save information here.</p>
+<p>Viewer count enabled.</p>
+</div>
+
+
+<div id="study" class="tab-content">
+<h3>Study Hub</h3>
+<ul>
+<li>Arithmetic</li>
+<li>Reasoning</li>
+<li>Current Affairs</li>
+<li>GK</li>
+<li>Telangana History</li>
+</ul>
+<p>Content auto-generated (sample).</p>
+</div>
+
+
+<div id="media" class="tab-content">
+<h3>Videos & Photos</h3>
+<p>Instagram & YouTube Shorts (API Ready)</p>
+</div>
+
+
+<div id="comments" class="tab-content">
+<h3>Comments</h3>
+<textarea id="commentBox" placeholder="Write your comment..."></textarea>
+<button onclick="addComment()">Post</button>
+<div id="commentList"></div>
+</div>
+
+
+</div>
+
+
+<div class="divider"></div>
+
+
+<!-- RIGHT PART -->
+<div class="right">
+<h3>తాజా వార్తలు (Latest News)</h3>
+<ul>
+<li>తెలంగాణ వార్తలు – Auto (API Ready)</li>
+<li>కేంద్ర ప్రభుత్వ వార్తలు – Auto</li>
+</ul>
+</div>
+
+
+</div>
+
+
+<!-- FOOTER -->
+<div class="footer">
+@infobypawarsachin
+</div>
+
+
+<script>
+function openTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+    document.getElementById(tabId).style.display = 'block';
+}
+
+
+function addComment() {
+    let text = document.getElementById("commentBox").value;
+    if(text.trim() === "") return;
+    let div = document.createElement("div");
+    div.className = "comment";
+    div.innerText = text;
+    document.getElementById("commentList").appendChild(div);
+    document.getElementById("commentBox").value = "";
+}
+</script>
+
+
+</body>
+</html>
+
